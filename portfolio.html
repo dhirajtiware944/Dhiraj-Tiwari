@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dhiraj Tiwari - Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Professional Light Theme Colors */
+      --bg-top: #f4f7fb;
+      --bg-mid: #e2ebf5;
+      --bg-bottom: #c9dbe9;
+      --text: #1a2533;
+      --text-secondary: #5c6e85;
+      --glass-bg: rgba(255, 255, 255, 0.45);
+      --glass-border: rgba(255, 255, 255, 0.7);
+      --glass-shadow: 0 20px 40px rgba(26, 37, 51, 0.08);
+      --ease-pro: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 50%, var(--bg-bottom) 100%);
+      color: var(--text);
+      font-family: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .bg-gradient {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.7) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Glass Card Style for Light Mode */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+    }
+
+    /* Slow & Professional Screen Fade Transitions */
+    .screen {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateY(12px);
+      filter: blur(6px);
+      transition: opacity 2.2s var(--ease-pro),
+                  transform 2.2s var(--ease-pro),
+                  filter 2.2s var(--ease-pro);
+      pointer-events: none;
+      will-change: transform, opacity, filter;
+    }
+
+    .screen.active {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0px);
+      pointer-events: auto;
+    }
+
+    /* Screen 1 */
+    .screen-1 h1 {
+      font-size: clamp(80px, 18vw, 160px);
+      font-weight: 700;
+      letter-spacing: -3px;
+      color: var(--text);
+      line-height: 1;
+      text-align: center;
+    }
+
+    /* Screen 2 */
+    .screen-2 h1 {
+      font-size: clamp(40px, 10vw, 84px);
+      font-weight: 700;
+      letter-spacing: -2px;
+      color: var(--text);
+      line-height: 1.25;
+      text-align: center;
+      max-width: 85vw;
+    }
+
+    /* Screen 3 */
+    .screen-3 {
+      padding: 40px 20px;
+      max-width: 800px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .profile-pic {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--text);
+      opacity: 0;
+      animation: proFadeIn 1.8s var(--ease-pro) 0.3s forwards;
+      will-change: transform, opacity;
+    }
+
+    .screen-3 h2 {
+      font-size: clamp(28px, 6vw, 42px);
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+      color: var(--text);
+      line-height: 1.2;
+      opacity: 0;
+      animation: proFadeUp 1.8s var(--ease-pro) 0.5s forwards;
+      will-change: transform, opacity;
+    }
+
+    .bio {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 32px;
+      font-weight: 400;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0;
+      animation: proFadeUp 1.8s var(--ease-pro) 0.7s forwards;
+      will-change: transform, opacity;
+    }
+
+    @keyframes proFadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes proFadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Professional Cover Flow Carousel */
+    .carousel-container {
+      perspective: 1200px;
+      width: 100%;
+      height: 250px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      opacity: 0;
+      animation: proFadeUp 1.8s var(--ease-pro) 0.9s forwards;
+      will-change: transform, opacity;
+    }
+
+    .carousel-track {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .card {
+      position: absolute;
+      width: 190px;
+      height: 220px;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text);
+      transition: transform 1.2s var(--ease-pro),
+                  opacity 1.2s var(--ease-pro),
+                  box-shadow 1.2s var(--ease-pro);
+      cursor: pointer;
+      overflow: hidden;
+      padding: 20px;
+      will-change: transform, opacity;
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .card[data-pos="-1"] {
+      transform: translateX(-150px) scale(0.85) rotateY(15deg);
+      z-index: 1;
+      opacity: 0.45;
+    }
+
+    .card[data-pos="0"] {
+      transform: translateX(0) scale(1.05) rotateY(0deg);
+      z-index: 3;
+      opacity: 1;
+      border-color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 20px 45px rgba(26, 37, 51, 0.12);
+    }
+
+    .card[data-pos="1"] {
+      transform: translateX(150px) scale(0.85) rotateY(-15deg);
+      z-index: 1;
+      opacity: 0.45;
+    }
+
+    .carousel-controls {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 12px;
+      opacity: 0;
+      animation: proFadeUp 1.8s var(--ease-pro) 1.1s forwards;
+      will-change: transform, opacity;
+    }
+
+    .ctrl-btn {
+      color: var(--text);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      transition: transform 0.5s var(--ease-pro),
+                  background 0.5s var(--ease-pro);
+    }
+
+    .ctrl-btn:hover {
+      background: rgba(255, 255, 255, 0.8);
+      transform: scale(1.05);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 1.5s ease;
+      pointer-events: none;
+      display: flex;
+      gap: 8px;
+    }
+
+    .screen-3.active ~ .scroll-indicator {
+      opacity: 0.5;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--text-secondary);
+      border-radius: 50%;
+      animation: bounce 2.2s ease-in-out infinite;
+    }
+
+    .dot:nth-child(2) { animation-delay: 0.3s; }
+    .dot:nth-child(3) { animation-delay: 0.6s; }
+
+    @keyframes bounce {
+      0%, 100% { opacity: 0.3; transform: translateY(0); }
+      50% { opacity: 0.8; transform: translateY(-6px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="bg-gradient"></div>
+
+    <!-- Screen 1 -->
+    <div class="screen screen-1 active">
+      <h1>Hello.</h1>
+    </div>
+
+    <!-- Screen 2 -->
+    <div class="screen screen-2">
+      <h1>Hi, I'm Dhiraj Tiwari.</h1>
+    </div>
+
+    <!-- Screen 3 -->
+    <div class="screen screen-3">
+      <div class="profile-pic glass-card">DT</div>
+      <h2>Hi, I'm Dhiraj Tiwari.</h2>
+      <p class="bio">
+        BCS student passionate about programming, web development, and capturing moments through nature photography.
+      </p>
+
+      <!-- Carousel -->
+      <div class="carousel-container">
+        <div class="carousel-track">
+          
+          <a href="https://x.com/Dhirxj04" target="_blank" class="card glass-card" data-pos="-1">
+            <div class="card-title">X / Twitter</div>
+          </a>
+
+          <a href="https://www.snapchat.com/add/dhirxj.04?share_id=q6CEAxcWz7k&locale=en-US" target="_blank" class="card glass-card" data-pos="0">
+            <div class="card-title">Snapchat</div>
+          </a>
+
+          <a href="tel:8830617770" class="card glass-card" data-pos="1">
+            <div class="card-title">Contact</div>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="carousel-controls">
+        <button class="ctrl-btn glass-card" id="prev">‹</button>
+        <button class="ctrl-btn glass-card" id="next">›</button>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+
+  <script>
+    let currentScreen = 0;
+    const screens = document.querySelectorAll('.screen');
+    const timings = [3500, 3500];
+
+    function showScreen(index) {
+      screens.forEach((screen, i) => {
+        screen.classList.remove('active');
+        if (i === index) {
+          screen.classList.add('active');
+        }
+      });
+    }
+
+    function nextScreen() {
+      if (currentScreen < screens.length - 1) {
+        currentScreen++;
+        showScreen(currentScreen);
+        if (currentScreen < screens.length - 1) {
+          setTimeout(nextScreen, timings[currentScreen - 1]);
+        }
+      }
+    }
+
+    setTimeout(nextScreen, timings[0]);
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.key === 'ArrowRight' || e.key === ' ') && currentScreen < screens.length - 1) {
+        e.preventDefault();
+        currentScreen++;
+        showScreen(currentScreen);
+      }
+    });
+
+    const cards = document.querySelectorAll('.card');
+    let positions = [-1, 0, 1];
+
+    function updateCarousel() {
+      cards.forEach((card, index) => {
+        card.setAttribute('data-pos', positions[index]);
+      });
+    }
+
+    document.getElementById('next').addEventListener('click', () => {
+      positions.unshift(positions.pop());
+      updateCarousel();
+    });
+
+    document.getElementById('prev').addEventListener('click', () => {
+      positions.push(positions.shift());
+      updateCarousel();
+    });
+
+    cards.forEach((card, index) => {
+      card.addEventListener('click', (e) => {
+        if (card.getAttribute('data-pos') !== '0') {
+          e.preventDefault();
+          if (index === 0) positions = [0, 1, -1];
+          else if (index === 1) positions = [-1, 0, 1];
+          else if (index === 2) positions = [1, -1, 0];
+          updateCarousel();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
